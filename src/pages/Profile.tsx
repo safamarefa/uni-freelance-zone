@@ -13,6 +13,7 @@ import {
   LogOut,
   Star,
   TrendingUp,
+  Activity,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -109,6 +110,16 @@ const Profile = () => {
               <div className="flex-1">
                 <p className="font-medium">Edit Profile</p>
                 <p className="text-sm text-muted-foreground">Update your information</p>
+              </div>
+            </Link>
+
+            <Link to="/activity" className="flex items-center gap-4 p-4 hover:bg-muted/50 transition-smooth">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <Activity className="h-5 w-5 text-primary" />
+              </div>
+              <div className="flex-1">
+                <p className="font-medium">Activity History</p>
+                <p className="text-sm text-muted-foreground">View your recent activities</p>
               </div>
             </Link>
 

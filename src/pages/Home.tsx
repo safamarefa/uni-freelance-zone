@@ -81,24 +81,64 @@ const Home = () => {
       </header>
 
       <main className="container mx-auto px-4 py-6">
-        {/* Categories */}
+        {/* Service Grid */}
         <section className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Kategori Populer</h2>
-            <Link to="/browse" className="text-sm text-primary hover:underline">
-              Lihat Semua
+          <div className="grid grid-cols-4 gap-4">
+            <Link to="/browse?category=Tutor" className="flex flex-col items-center gap-2 group">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
+                <span className="text-2xl">📚</span>
+              </div>
+              <span className="text-xs font-medium text-center">Tutor</span>
             </Link>
-          </div>
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            {categories.map((category) => (
-              <Badge
-                key={category}
-                variant="secondary"
-                className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-smooth whitespace-nowrap"
-              >
-                {category}
-              </Badge>
-            ))}
+            
+            <Link to="/browse?category=Design" className="flex flex-col items-center gap-2 group">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
+                <span className="text-2xl">🎨</span>
+              </div>
+              <span className="text-xs font-medium text-center">Design</span>
+            </Link>
+            
+            <Link to="/browse?category=Programming" className="flex flex-col items-center gap-2 group">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-success to-success/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
+                <span className="text-2xl">💻</span>
+              </div>
+              <span className="text-xs font-medium text-center">Coding</span>
+            </Link>
+            
+            <Link to="/browse?category=Writing" className="flex flex-col items-center gap-2 group">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
+                <span className="text-2xl">✍️</span>
+              </div>
+              <span className="text-xs font-medium text-center">Writing</span>
+            </Link>
+            
+            <Link to="/browse?category=Cleaning" className="flex flex-col items-center gap-2 group">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-pink-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
+                <span className="text-2xl">🧹</span>
+              </div>
+              <span className="text-xs font-medium text-center">Cleaning</span>
+            </Link>
+            
+            <Link to="/browse?category=Delivery" className="flex flex-col items-center gap-2 group">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-orange-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
+                <span className="text-2xl">🚚</span>
+              </div>
+              <span className="text-xs font-medium text-center">Delivery</span>
+            </Link>
+            
+            <Link to="/browse?category=Photography" className="flex flex-col items-center gap-2 group">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-purple-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
+                <span className="text-2xl">📷</span>
+              </div>
+              <span className="text-xs font-medium text-center">Photo</span>
+            </Link>
+            
+            <Link to="/browse" className="flex flex-col items-center gap-2 group">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-400 to-gray-300 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
+                <span className="text-2xl">⋯</span>
+              </div>
+              <span className="text-xs font-medium text-center">More</span>
+            </Link>
           </div>
         </section>
 
