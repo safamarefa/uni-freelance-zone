@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import ServiceCard from "@/components/ServiceCard";
 import BottomNav from "@/components/BottomNav";
+import TopNav from "@/components/TopNav";
 import { Search, Bell, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -53,8 +54,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen pb-20 md:pb-8">
+      <TopNav />
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-card border-b border-border shadow-sm">
+      <header className="md:hidden sticky top-0 z-40 bg-card border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>

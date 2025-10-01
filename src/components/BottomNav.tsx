@@ -30,7 +30,13 @@ const BottomNav = () => {
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <Icon className={cn("h-6 w-6 mb-1", isActive && "fill-primary")} />
+              <Icon 
+                className={cn(
+                  "h-6 w-6 mb-1",
+                  isActive ? "stroke-primary stroke-[2.5px]" : "stroke-muted-foreground"
+                )} 
+                strokeWidth={isActive ? 2.5 : 2}
+              />
               <span className="text-xs font-medium">{item.label}</span>
             </Link>
           );
