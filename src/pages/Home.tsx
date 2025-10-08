@@ -77,7 +77,7 @@ const Home = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold text-primary">
                 UPWORK
               </h1>
               <p className="text-sm text-muted-foreground">Welcome back, {userName || "Guest"}!</p>
