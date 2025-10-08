@@ -7,6 +7,9 @@ import TopNav from "@/components/TopNav";
 import { Search, Bell, TrendingUp, BookOpen, Palette, Code, PenTool, Trash2, Truck, Camera, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import tutorImage from "@/assets/tutor-service.jpg";
+import designImage from "@/assets/design-service.jpg";
+import programmingImage from "@/assets/programming-service.jpg";
 
 const Home = () => {
   const [userName, setUserName] = useState("");
@@ -36,6 +39,7 @@ const Home = () => {
       freelancerName: "Andi Pratama",
       location: "UI Depok",
       availability: "Senin-Jumat",
+      image: tutorImage,
     },
     {
       id: "2",
@@ -48,6 +52,7 @@ const Home = () => {
       freelancerName: "Sarah Wijaya",
       location: "ITB Bandung",
       availability: "Flexible",
+      image: designImage,
     },
     {
       id: "3",
@@ -60,6 +65,7 @@ const Home = () => {
       freelancerName: "Budi Santoso",
       location: "ITS Surabaya",
       availability: "Minggu-Jumat",
+      image: programmingImage,
     },
   ];
 
