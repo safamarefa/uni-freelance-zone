@@ -4,10 +4,24 @@ import { Badge } from "@/components/ui/badge";
 import ServiceCard from "@/components/ServiceCard";
 import BottomNav from "@/components/BottomNav";
 import TopNav from "@/components/TopNav";
-import { Search, Bell, TrendingUp } from "lucide-react";
+import { Search, Bell, TrendingUp, BookOpen, Palette, Code, PenTool, Trash2, Truck, Camera, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import tutorImage from "@/assets/tutor-service.jpg";
+import designImage from "@/assets/design-service.jpg";
+import programmingImage from "@/assets/programming-service.jpg";
 
 const Home = () => {
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const userData = JSON.parse(user);
+      setUserName(userData.name);
+    }
+  }, []);
+
   const categories = [
     "Tutor", "Design", "Writing", "Programming", "Photography",
     "Cleaning", "Delivery", "Translation", "Music", "Sports"
@@ -25,6 +39,7 @@ const Home = () => {
       freelancerName: "Andi Pratama",
       location: "UI Depok",
       availability: "Senin-Jumat",
+      image: tutorImage,
     },
     {
       id: "2",
@@ -37,6 +52,7 @@ const Home = () => {
       freelancerName: "Sarah Wijaya",
       location: "ITB Bandung",
       availability: "Flexible",
+      image: designImage,
     },
     {
       id: "3",
@@ -49,21 +65,22 @@ const Home = () => {
       freelancerName: "Budi Santoso",
       location: "ITS Surabaya",
       availability: "Minggu-Jumat",
+      image: programmingImage,
     },
   ];
 
   return (
-    <div className="min-h-screen pb-20 md:pb-8">
+    <div className="min-h-screen pb-20">
       <TopNav />
       {/* Header */}
       <header className="md:hidden sticky top-0 z-40 bg-card border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
-                CampusWork
+              <h1 className="text-2xl font-bold text-primary">
+                UPWORK
               </h1>
-              <p className="text-sm text-muted-foreground">Halo, selamat datang! 👋</p>
+              <p className="text-sm text-muted-foreground">Welcome back, {userName || "Guest"}!</p>
             </div>
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
@@ -87,57 +104,57 @@ const Home = () => {
         <section className="mb-8">
           <div className="grid grid-cols-4 gap-4">
             <Link to="/browse?category=Tutor" className="flex flex-col items-center gap-2 group">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
-                <span className="text-2xl">📚</span>
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-smooth">
+                <BookOpen className="h-7 w-7 text-primary-foreground" />
               </div>
               <span className="text-xs font-medium text-center">Tutor</span>
             </Link>
             
             <Link to="/browse?category=Design" className="flex flex-col items-center gap-2 group">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
-                <span className="text-2xl">🎨</span>
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-smooth">
+                <Palette className="h-7 w-7 text-primary-foreground" />
               </div>
               <span className="text-xs font-medium text-center">Design</span>
             </Link>
             
             <Link to="/browse?category=Programming" className="flex flex-col items-center gap-2 group">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-success to-success/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
-                <span className="text-2xl">💻</span>
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-smooth">
+                <Code className="h-7 w-7 text-primary-foreground" />
               </div>
               <span className="text-xs font-medium text-center">Coding</span>
             </Link>
             
             <Link to="/browse?category=Writing" className="flex flex-col items-center gap-2 group">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
-                <span className="text-2xl">✍️</span>
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-smooth">
+                <PenTool className="h-7 w-7 text-primary-foreground" />
               </div>
               <span className="text-xs font-medium text-center">Writing</span>
             </Link>
             
             <Link to="/browse?category=Cleaning" className="flex flex-col items-center gap-2 group">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-pink-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
-                <span className="text-2xl">🧹</span>
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-smooth">
+                <Trash2 className="h-7 w-7 text-primary-foreground" />
               </div>
               <span className="text-xs font-medium text-center">Cleaning</span>
             </Link>
             
             <Link to="/browse?category=Delivery" className="flex flex-col items-center gap-2 group">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-orange-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
-                <span className="text-2xl">🚚</span>
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-smooth">
+                <Truck className="h-7 w-7 text-primary-foreground" />
               </div>
               <span className="text-xs font-medium text-center">Delivery</span>
             </Link>
             
             <Link to="/browse?category=Photography" className="flex flex-col items-center gap-2 group">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-purple-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
-                <span className="text-2xl">📷</span>
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-smooth">
+                <Camera className="h-7 w-7 text-primary-foreground" />
               </div>
               <span className="text-xs font-medium text-center">Photo</span>
             </Link>
             
             <Link to="/browse" className="flex flex-col items-center gap-2 group">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-400 to-gray-300 flex items-center justify-center shadow-lg group-hover:scale-110 transition-smooth">
-                <span className="text-2xl">⋯</span>
+              <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-smooth">
+                <MoreHorizontal className="h-7 w-7 text-primary-foreground" />
               </div>
               <span className="text-xs font-medium text-center">More</span>
             </Link>

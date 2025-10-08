@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import RoleSelection from "./pages/RoleSelection";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
+import ServiceDetail from "./pages/ServiceDetail";
 import Bookings from "./pages/Bookings";
 import Activity from "./pages/Activity";
 import Profile from "./pages/Profile";
@@ -35,6 +36,7 @@ const App = () => {
               element={isAuthenticated ? <Home /> : <Navigate to="/welcome" />}
             />
             <Route path="/browse" element={<Browse />} />
+            <Route path="/service/:id" element={<ServiceDetail />} />
             <Route path="/bookings" element={<Bookings />} />
             <Route path="/activity" element={<Activity />} />
             <Route path="/profile" element={<Profile />} />
