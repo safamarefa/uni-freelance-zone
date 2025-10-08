@@ -27,7 +27,14 @@ const Register = () => {
       return;
     }
     
-    // Simulate registration - in production, this would call an API
+    // Save user data to localStorage
+    const userData = {
+      name,
+      email,
+      id: Date.now().toString(), // Temporary ID for demo
+    };
+    localStorage.setItem("user", JSON.stringify(userData));
+    
     toast({
       title: "Pendaftaran Berhasil!",
       description: "Silakan cek email untuk verifikasi akun",
