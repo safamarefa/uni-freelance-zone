@@ -17,7 +17,7 @@ const RoleSelection = () => {
       description: `Selamat bergabung sebagai ${role === "freelancer" ? "Freelancer" : role === "client" ? "Client" : "Freelancer & Client"}`,
     });
     
-    navigate("/");
+    navigate("/home");
   };
 
   return (
