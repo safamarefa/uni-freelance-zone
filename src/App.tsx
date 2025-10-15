@@ -32,12 +32,8 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/role-selection" element={<RoleSelection />} />
             <Route
-              path="/home"
-              element={isAuthenticated ? <Home /> : <Navigate to="/welcome" />}
-            />
-            <Route
               path="/"
-              element={<Navigate to={isAuthenticated ? "/home" : "/welcome"} />}
+              element={isAuthenticated ? <Home /> : <Navigate to="/welcome" />}
             />
             <Route path="/browse" element={<Browse />} />
             <Route path="/service/:id" element={<ServiceDetail />} />
