@@ -1,42 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ServiceCard from "@/components/ServiceCard";
 import BottomNav from "@/components/BottomNav";
 import { Search, SlidersHorizontal, ArrowLeft } from "lucide-react";
-import { Link, useSearchParams } from "react-router-dom";
-import tutorImage from "@/assets/tutor-service.jpg";
-import designImage from "@/assets/design-service.jpg";
-import programmingImage from "@/assets/programming-service.jpg";
+import { Link } from "react-router-dom";
 
 const Browse = () => {
-  const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
 
   const categories = [
     "Semua", "Tutor", "Design", "Writing", "Programming", 
     "Photography", "Cleaning", "Delivery", "Translation"
   ];
 
-  useEffect(() => {
-    const category = searchParams.get("category");
-    const q = searchParams.get("q");
-    const location = searchParams.get("location");
-    
-    if (category && category !== "all") {
-      setSelectedCategory(category.charAt(0).toUpperCase() + category.slice(1));
-    }
-    if (q) {
-      setSearchQuery(q);
-    }
-  }, [searchParams]);
-
   const services = [
     {
       id: "1",
-      title: "Les Privat Kalkulus & Matematika untuk Mahasiswa",
+      title: "Les Privat Kalkulus & Matematika",
       category: "Tutor",
       price: 75000,
       priceUnit: "jam",
@@ -45,11 +27,10 @@ const Browse = () => {
       freelancerName: "Andi Pratama",
       location: "UI Depok",
       availability: "Senin-Jumat",
-      image: tutorImage,
     },
     {
       id: "2",
-      title: "Jasa Design Logo & Brand Identity Modern",
+      title: "Jasa Design Logo & Brand Identity",
       category: "Design",
       price: 150000,
       priceUnit: "project",
@@ -58,11 +39,10 @@ const Browse = () => {
       freelancerName: "Sarah Wijaya",
       location: "ITB Bandung",
       availability: "Flexible",
-      image: designImage,
     },
     {
       id: "3",
-      title: "Website Development dengan React & Node.js",
+      title: "Website Development React & Node.js",
       category: "Programming",
       price: 500000,
       priceUnit: "project",
@@ -71,11 +51,10 @@ const Browse = () => {
       freelancerName: "Budi Santoso",
       location: "ITS Surabaya",
       availability: "Minggu-Jumat",
-      image: programmingImage,
     },
     {
       id: "4",
-      title: "Jasa Fotografi Event & Portrait Professional",
+      title: "Jasa Fotografi Event & Portrait",
       category: "Photography",
       price: 300000,
       priceUnit: "sesi",
@@ -84,7 +63,6 @@ const Browse = () => {
       freelancerName: "Dina Marlina",
       location: "UGM Yogyakarta",
       availability: "Weekend",
-      image: designImage,
     },
     {
       id: "5",
@@ -97,7 +75,6 @@ const Browse = () => {
       freelancerName: "Rina Kusuma",
       location: "Unair Surabaya",
       availability: "Setiap Hari",
-      image: tutorImage,
     },
     {
       id: "6",
@@ -110,25 +87,12 @@ const Browse = () => {
       freelancerName: "Yuni Astuti",
       location: "Undip Semarang",
       availability: "Flexible",
-      image: programmingImage,
     },
   ];
 
-  let filteredServices = services;
-
-  // Filter by category
-  if (selectedCategory && selectedCategory !== "Semua") {
-    filteredServices = filteredServices.filter(s => s.category === selectedCategory);
-  }
-
-  // Filter by search query
-  if (searchQuery) {
-    filteredServices = filteredServices.filter(s => 
-      s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      s.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      s.freelancerName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }
+  const filteredServices = selectedCategory && selectedCategory !== "Semua"
+    ? services.filter(s => s.category === selectedCategory)
+    : services;
 
   return (
     <div className="min-h-screen pb-20 md:pb-8">
@@ -151,8 +115,6 @@ const Browse = () => {
               <Input
                 placeholder="Cari layanan..."
                 className="pl-10"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <Button variant="outline" size="icon">
