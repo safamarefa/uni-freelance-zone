@@ -49,7 +49,7 @@ const Bookings = () => {
   };
 
   return (
-    <div className="min-h-screen pb-20 md:pb-8">
+    <div className="min-h-screen pb-20 md:pb-0">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-card border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4">

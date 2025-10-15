@@ -15,7 +15,7 @@ const TopNav = () => {
   return (
     <nav className="hidden md:flex fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border shadow-lg">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center h-16 gap-8">
+        <div className="flex items-center justify-center h-16 gap-12">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;

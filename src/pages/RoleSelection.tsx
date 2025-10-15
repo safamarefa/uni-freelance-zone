@@ -10,14 +10,18 @@ const RoleSelection = () => {
 
   const handleRoleSelect = (role: string) => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
-    localStorage.setItem("user", JSON.stringify({ ...user, role }));
+    const updatedUser = { ...user, role };
+    localStorage.setItem("user", JSON.stringify(updatedUser));
     
     toast({
       title: "Role dipilih!",
       description: `Selamat bergabung sebagai ${role === "freelancer" ? "Freelancer" : role === "client" ? "Client" : "Freelancer & Client"}`,
     });
     
-    navigate("/");
+    // Small delay to ensure localStorage is updated
+    setTimeout(() => {
+      navigate("/", { replace: true });
+    }, 100);
   };
 
   return (

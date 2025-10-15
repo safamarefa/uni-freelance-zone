@@ -32,10 +32,16 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen pb-20 md:pb-8 bg-muted/30">
+    <div className="min-h-screen pb-20 md:pb-0 bg-muted/30">
       {/* Header with Profile */}
       <div className="gradient-primary text-white px-4 pt-8 pb-12">
         <div className="container mx-auto">
+          <Link to="/" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-smooth">
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="text-sm">Back</span>
+          </Link>
           <div className="flex items-center gap-4 mb-6">
             <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
               <AvatarImage src="" />

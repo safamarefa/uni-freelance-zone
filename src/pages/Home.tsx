@@ -70,9 +70,10 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-20 md:pb-0">
       <TopNav />
-      {/* Header */}
+      
+      {/* Mobile Header */}
       <header className="md:hidden sticky top-0 z-40 bg-card border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
@@ -95,6 +96,33 @@ const Home = () => {
               placeholder="Cari jasa atau freelancer..."
               className="pl-10 transition-smooth"
             />
+          </div>
+        </div>
+      </header>
+
+      {/* Desktop Header */}
+      <header className="hidden md:block sticky top-0 z-40 bg-card border-b border-border shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-8">
+              <h1 className="text-2xl font-bold text-primary">
+                UPWORK
+              </h1>
+              <div className="relative w-96">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  placeholder="Cari jasa atau freelancer..."
+                  className="pl-10 transition-smooth"
+                />
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <p className="text-sm text-muted-foreground">Welcome back, {userName || "Guest"}!</p>
+              <Button variant="ghost" size="icon" className="relative">
+                <Bell className="h-5 w-5" />
+                <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full"></span>
+              </Button>
+            </div>
           </div>
         </div>
       </header>
