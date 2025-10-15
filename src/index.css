@@ -28,7 +28,7 @@ All colors MUST be HSL.
     --muted: 240 20% 96%;
     --muted-foreground: 240 5% 45%;
 
-    --accent: 25 70% 55%;
+    --accent: 330 85% 55%;
     --accent-foreground: 0 0% 100%;
 
     --success: 142 76% 45%;
@@ -43,7 +43,13 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
+    --hero-navy: 225 50% 20%;
+    --hero-dark: 225 55% 15%;
+    --pink-accent: 330 85% 55%;
+    --pink-light: 330 80% 65%;
+
     --gradient-primary: linear-gradient(135deg, hsl(350 70% 38%), hsl(350 65% 48%));
+    --gradient-hero: linear-gradient(135deg, hsl(225 55% 15%), hsl(225 50% 20%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(240 20% 98%));
     --shadow-card: 0 4px 20px -2px hsl(350 70% 38% / 0.08);
     --shadow-hover: 0 8px 30px -4px hsl(350 70% 38% / 0.15);
@@ -109,6 +115,10 @@ All colors MUST be HSL.
     background: var(--gradient-primary);
   }
 
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
   .gradient-card {
     background: var(--gradient-card);
   }
@@ -123,5 +133,10 @@ All colors MUST be HSL.
 
   .transition-smooth {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .circle-decoration {
+    border-radius: 50%;
+    background: hsl(var(--pink-accent) / 0.15);
   }
 }
