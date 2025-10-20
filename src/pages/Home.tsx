@@ -79,7 +79,7 @@ const Home = () => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-2xl font-bold text-primary">
-                UPWORK
+                CAMPUSWORK
               </h1>
               <p className="text-sm text-muted-foreground">Welcome back, {userName || "Guest"}!</p>
             </div>
@@ -106,7 +106,7 @@ const Home = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-8">
               <h1 className="text-2xl font-bold text-primary">
-                UPWORK
+                CAMPUSWORK
               </h1>
               <div className="relative w-96">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
