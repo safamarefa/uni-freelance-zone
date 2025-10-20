@@ -85,7 +85,7 @@ const Activity = () => {
       <header className="sticky top-0 z-40 bg-card border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
-            <Link to="/">
+            <Link to="/home">
               <Button variant="ghost" size="icon">
                 <ArrowLeft className="h-5 w-5" />
               </Button>

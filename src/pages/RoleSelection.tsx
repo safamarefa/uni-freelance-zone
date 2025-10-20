@@ -20,7 +20,7 @@ const RoleSelection = () => {
     
     // Small delay to ensure localStorage is updated
     setTimeout(() => {
-      navigate("/", { replace: true });
+      navigate("/home", { replace: true });
     }, 100);
   };
 

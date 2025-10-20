@@ -27,20 +27,21 @@ const Register = () => {
       return;
     }
     
-    // Save user data to localStorage
+    // Save user data to localStorage (without role)
     const userData = {
       name,
       email,
+      password, // Store for demo purposes
       id: Date.now().toString(), // Temporary ID for demo
     };
-    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("registeredUser", JSON.stringify(userData));
     
     toast({
       title: "Pendaftaran Berhasil!",
-      description: "Silakan cek email untuk verifikasi akun",
+      description: "Silakan login untuk melanjutkan",
     });
     
-    navigate("/role-selection");
+    navigate("/login");
   };
 
   return (

@@ -16,15 +16,42 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simulate login - in production, this would call an API
-    localStorage.setItem("user", JSON.stringify({ email, role: "both" }));
+    // Check if user exists in registration
+    const registeredUser = localStorage.getItem("registeredUser");
     
-    toast({
-      title: "Login Berhasil!",
-      description: "Selamat datang kembali di CampusWork",
-    });
-    
-    navigate("/");
+    if (registeredUser) {
+      const userData = JSON.parse(registeredUser);
+      
+      // Simple validation (in production, this would be server-side)
+      if (userData.email === email && userData.password === password) {
+        // Store logged in user without role yet
+        localStorage.setItem("user", JSON.stringify({ 
+          id: userData.id,
+          name: userData.name,
+          email: userData.email 
+        }));
+        
+        toast({
+          title: "Login Berhasil!",
+          description: "Silakan pilih role Anda",
+        });
+        
+        // Redirect to role selection
+        navigate("/role-selection");
+      } else {
+        toast({
+          title: "Login Gagal",
+          description: "Email atau password salah",
+          variant: "destructive",
+        });
+      }
+    } else {
+      toast({
+        title: "Akun Tidak Ditemukan",
+        description: "Silakan daftar terlebih dahulu",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

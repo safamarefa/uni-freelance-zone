@@ -33,6 +33,10 @@ const App = () => {
             <Route path="/role-selection" element={<RoleSelection />} />
             <Route
               path="/"
+              element={<Navigate to="/welcome" />}
+            />
+            <Route
+              path="/home"
               element={isAuthenticated ? <Home /> : <Navigate to="/welcome" />}
             />
             <Route path="/browse" element={<Browse />} />
