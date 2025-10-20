@@ -6,12 +6,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,12 +26,11 @@ const Login = () => {
       
       // Simple validation (in production, this would be server-side)
       if (userData.email === email && userData.password === password) {
-        // Store logged in user without role yet
-        localStorage.setItem("user", JSON.stringify({ 
-          id: userData.id,
+        // Use AuthContext to login
+        login({ 
           name: userData.name,
           email: userData.email 
-        }));
+        });
         
         toast({
           title: "Login Berhasil!",

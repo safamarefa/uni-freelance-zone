@@ -3,25 +3,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Briefcase, UserCircle, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const RoleSelection = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { updateUser } = useAuth();
 
   const handleRoleSelect = (role: string) => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const updatedUser = { ...user, role };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+    // Update user with role using AuthContext
+    updateUser({ role });
     
     toast({
       title: "Role dipilih!",
       description: `Selamat bergabung sebagai ${role === "freelancer" ? "Freelancer" : role === "client" ? "Client" : "Freelancer & Client"}`,
     });
     
-    // Small delay to ensure localStorage is updated
-    setTimeout(() => {
-      navigate("/home", { replace: true });
-    }, 100);
+    // Navigate immediately - AuthContext will handle state update
+    navigate("/home", { replace: true });
   };
 
   return (
