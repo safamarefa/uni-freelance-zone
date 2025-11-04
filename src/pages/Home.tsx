@@ -82,14 +82,21 @@ const Home = () => {
                 <p className="text-sm text-muted-foreground">Dashboard Freelancer - {userName}</p>
               </div>
               <div className="flex items-center gap-2">
+                <Link to="/withdrawal">
+                  <Button variant="outline" size="sm">
+                    Penarikan Dana
+                  </Button>
+                </Link>
                 <Button className="gradient-primary">
                   <Plus className="h-4 w-4 mr-2" />
                   Tambah Jasa
                 </Button>
-                <Button variant="ghost" size="icon" className="relative">
-                  <Bell className="h-5 w-5" />
-                  <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full"></span>
-                </Button>
+                <Link to="/notifications">
+                  <Button variant="ghost" size="icon" className="relative">
+                    <Bell className="h-5 w-5" />
+                    <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full"></span>
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -158,16 +165,18 @@ const Home = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {[1, 2, 3].map((item) => (
-                    <div key={item} className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/5 transition-smooth">
-                      <div className="flex-1">
-                        <h3 className="font-semibold">Website Development untuk Startup</h3>
-                        <p className="text-sm text-muted-foreground">Client: John Doe • 2 hari lagi</p>
+                    <Link key={item} to="/order/1">
+                      <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/5 transition-smooth cursor-pointer">
+                        <div className="flex-1">
+                          <h3 className="font-semibold">Website Development untuk Startup</h3>
+                          <p className="text-sm text-muted-foreground">Client: John Doe • 2 hari lagi</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-bold text-success">Rp 500.000</p>
+                          <Badge variant="outline" className="mt-1">In Progress</Badge>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-bold text-success">Rp 500.000</p>
-                        <Badge variant="outline" className="mt-1">In Progress</Badge>
-                      </div>
-                    </div>
+                    </Link>
                   ))}
                 </CardContent>
               </Card>
@@ -192,8 +201,12 @@ const Home = () => {
                         <p className="font-bold text-primary mt-2">Rp {service.price.toLocaleString()} / {service.priceUnit}</p>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <Button size="sm" variant="outline">Edit</Button>
-                        <Button size="sm" variant="outline">Statistik</Button>
+                        <Link to={`/service/${service.id}/edit`}>
+                          <Button size="sm" variant="outline" className="w-full">Edit</Button>
+                        </Link>
+                        <Link to={`/service/${service.id}/stats`}>
+                          <Button size="sm" variant="outline" className="w-full">Statistik</Button>
+                        </Link>
                       </div>
                     </div>
                   ))}
@@ -212,21 +225,23 @@ const Home = () => {
                     { name: "Budi Santoso", message: "Terima kasih untuk revisinya!", time: "2 jam lalu", unread: false },
                     { name: "Ani Kusuma", message: "File sudah saya kirim ya", time: "1 hari lalu", unread: false },
                   ].map((chat, idx) => (
-                    <div key={idx} className="flex items-center gap-4 p-4 border rounded-lg hover:bg-accent/5 transition-smooth cursor-pointer">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                        <span className="text-primary font-semibold">{chat.name[0]}</span>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h3 className="font-semibold">{chat.name}</h3>
-                          <span className="text-xs text-muted-foreground">{chat.time}</span>
+                    <Link key={idx} to="/chat/1">
+                      <div className="flex items-center gap-4 p-4 border rounded-lg hover:bg-accent/5 transition-smooth cursor-pointer">
+                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-primary font-semibold">{chat.name[0]}</span>
                         </div>
-                        <p className="text-sm text-muted-foreground">{chat.message}</p>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <h3 className="font-semibold">{chat.name}</h3>
+                            <span className="text-xs text-muted-foreground">{chat.time}</span>
+                          </div>
+                          <p className="text-sm text-muted-foreground">{chat.message}</p>
+                        </div>
+                        {chat.unread && (
+                          <div className="w-2 h-2 rounded-full bg-destructive"></div>
+                        )}
                       </div>
-                      {chat.unread && (
-                        <div className="w-2 h-2 rounded-full bg-destructive"></div>
-                      )}
-                    </div>
+                    </Link>
                   ))}
                 </CardContent>
               </Card>

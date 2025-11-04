@@ -1,16 +1,27 @@
 import { Home, Search, Calendar, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 const BottomNav = () => {
   const location = useLocation();
+  const { user } = useAuth();
+  const userRole = user?.role || "client";
 
-  const navItems = [
+  const clientNavItems = [
     { icon: Home, label: "Home", path: "/home" },
     { icon: Search, label: "Browse", path: "/browse" },
     { icon: Calendar, label: "Bookings", path: "/bookings" },
     { icon: User, label: "Profile", path: "/profile" },
   ];
+
+  const freelancerNavItems = [
+    { icon: Home, label: "Home", path: "/home" },
+    { icon: Calendar, label: "Bookings", path: "/bookings" },
+    { icon: User, label: "Profile", path: "/profile" },
+  ];
+
+  const navItems = userRole === "freelancer" ? freelancerNavItems : clientNavItems;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border shadow-lg md:hidden">

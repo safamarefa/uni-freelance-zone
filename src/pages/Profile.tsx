@@ -51,12 +51,36 @@ const Profile = () => {
               <h1 className="text-2xl font-bold">John Doe</h1>
               <p className="text-white/80">john.doe@university.ac.id</p>
               <div className="flex gap-2 mt-2">
-                <Badge className="bg-white/20 text-white border-white/30">
-                  Freelancer
-                </Badge>
-                <Badge className="bg-white/20 text-white border-white/30">
-                  Client
-                </Badge>
+                {(() => {
+                  const storedUser = localStorage.getItem("user");
+                  const userRole = storedUser ? JSON.parse(storedUser).role : null;
+                  
+                  if (userRole === "freelancer") {
+                    return (
+                      <Badge className="bg-white/20 text-white border-white/30">
+                        Freelancer
+                      </Badge>
+                    );
+                  } else if (userRole === "client") {
+                    return (
+                      <Badge className="bg-white/20 text-white border-white/30">
+                        Client
+                      </Badge>
+                    );
+                  } else if (userRole === "both") {
+                    return (
+                      <>
+                        <Badge className="bg-white/20 text-white border-white/30">
+                          Freelancer
+                        </Badge>
+                        <Badge className="bg-white/20 text-white border-white/30">
+                          Client
+                        </Badge>
+                      </>
+                    );
+                  }
+                  return null;
+                })()}
               </div>
             </div>
           </div>
