@@ -7,20 +7,18 @@ import TopNav from "@/components/TopNav";
 import { Search, Bell, TrendingUp, BookOpen, Palette, Code, PenTool, Trash2, Truck, Camera, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 import tutorImage from "@/assets/tutor-service.jpg";
 import designImage from "@/assets/design-service.jpg";
 import programmingImage from "@/assets/programming-service.jpg";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus, DollarSign, CheckCircle, Clock, MessageSquare, TrendingUp as TrendingUpIcon } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Home = () => {
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const userData = JSON.parse(user);
-      setUserName(userData.name);
-    }
-  }, []);
+  const { user } = useAuth();
+  const userName = user?.name || "Guest";
+  const userRole = user?.role || "client";
 
   const categories = [
     "Tutor", "Design", "Writing", "Programming", "Photography",
@@ -69,6 +67,179 @@ const Home = () => {
     },
   ];
 
+  // Freelancer Dashboard Content
+  if (userRole === "freelancer" || userRole === "both") {
+    return (
+      <div className="min-h-screen pb-20 md:pb-0">
+        <TopNav />
+        
+        {/* Header */}
+        <header className="sticky top-0 z-40 bg-card border-b border-border shadow-sm">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-primary">CAMPUSWORK</h1>
+                <p className="text-sm text-muted-foreground">Dashboard Freelancer - {userName}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button className="gradient-primary">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Tambah Jasa
+                </Button>
+                <Button variant="ghost" size="icon" className="relative">
+                  <Bell className="h-5 w-5" />
+                  <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full"></span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main className="container mx-auto px-4 py-6">
+          {/* Statistics Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Total Penghasilan</CardTitle>
+                <DollarSign className="h-4 w-4 text-success" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-success">Rp 2.450.000</div>
+                <p className="text-xs text-muted-foreground mt-1">+12% dari bulan lalu</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Order Aktif</CardTitle>
+                <Clock className="h-4 w-4 text-warning" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-warning">5</div>
+                <p className="text-xs text-muted-foreground mt-1">3 menunggu review</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Order Selesai</CardTitle>
+                <CheckCircle className="h-4 w-4 text-primary" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-primary">23</div>
+                <p className="text-xs text-muted-foreground mt-1">Rating rata-rata 4.8</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Pesan Baru</CardTitle>
+                <MessageSquare className="h-4 w-4 text-accent" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-accent">8</div>
+                <p className="text-xs text-muted-foreground mt-1">4 belum dibaca</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Main Content Tabs */}
+          <Tabs defaultValue="orders" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="orders">Activity Order</TabsTrigger>
+              <TabsTrigger value="services">Jasa Saya</TabsTrigger>
+              <TabsTrigger value="chats">Chat Client</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="orders" className="space-y-4 mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Order Terbaru</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {[1, 2, 3].map((item) => (
+                    <div key={item} className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/5 transition-smooth">
+                      <div className="flex-1">
+                        <h3 className="font-semibold">Website Development untuk Startup</h3>
+                        <p className="text-sm text-muted-foreground">Client: John Doe • 2 hari lagi</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-bold text-success">Rp 500.000</p>
+                        <Badge variant="outline" className="mt-1">In Progress</Badge>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="services" className="space-y-4 mt-4">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle>Jasa yang Saya Tawarkan</CardTitle>
+                  <Button size="sm" className="gradient-primary">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Tambah
+                  </Button>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {trendingServices.slice(0, 2).map((service) => (
+                    <div key={service.id} className="flex gap-4 p-4 border rounded-lg hover:bg-accent/5 transition-smooth">
+                      <img src={service.image} alt={service.title} className="w-24 h-24 object-cover rounded-lg" />
+                      <div className="flex-1">
+                        <h3 className="font-semibold">{service.title}</h3>
+                        <p className="text-sm text-muted-foreground">{service.category} • {service.reviewCount} reviews</p>
+                        <p className="font-bold text-primary mt-2">Rp {service.price.toLocaleString()} / {service.priceUnit}</p>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <Button size="sm" variant="outline">Edit</Button>
+                        <Button size="sm" variant="outline">Statistik</Button>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="chats" className="space-y-4 mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Percakapan dengan Client</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {[
+                    { name: "Sarah Wijaya", message: "Kapan bisa mulai projectnya?", time: "5 menit lalu", unread: true },
+                    { name: "Budi Santoso", message: "Terima kasih untuk revisinya!", time: "2 jam lalu", unread: false },
+                    { name: "Ani Kusuma", message: "File sudah saya kirim ya", time: "1 hari lalu", unread: false },
+                  ].map((chat, idx) => (
+                    <div key={idx} className="flex items-center gap-4 p-4 border rounded-lg hover:bg-accent/5 transition-smooth cursor-pointer">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <span className="text-primary font-semibold">{chat.name[0]}</span>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-semibold">{chat.name}</h3>
+                          <span className="text-xs text-muted-foreground">{chat.time}</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{chat.message}</p>
+                      </div>
+                      {chat.unread && (
+                        <div className="w-2 h-2 rounded-full bg-destructive"></div>
+                      )}
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </main>
+
+        <BottomNav />
+      </div>
+    );
+  }
+
+  // Client Dashboard Content (default)
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <TopNav />
@@ -81,7 +252,7 @@ const Home = () => {
               <h1 className="text-2xl font-bold text-primary">
                 CAMPUSWORK
               </h1>
-              <p className="text-sm text-muted-foreground">Welcome back, {userName || "Guest"}!</p>
+              <p className="text-sm text-muted-foreground">Welcome back, {userName}!</p>
             </div>
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
@@ -117,7 +288,7 @@ const Home = () => {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <p className="text-sm text-muted-foreground">Welcome back, {userName || "Guest"}!</p>
+              <p className="text-sm text-muted-foreground">Welcome back, {userName}!</p>
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
                 <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full"></span>
