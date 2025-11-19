@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
 import BottomNav from "@/components/BottomNav";
 import {
   User,
@@ -17,10 +18,24 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, updateUser } = useAuth();
+  const [selectedRole, setSelectedRole] = useState(user?.role || "freelancer");
+  const [switchRoleOpen, setSwitchRoleOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -29,6 +44,16 @@ const Profile = () => {
       description: "Sampai jumpa lagi!",
     });
     navigate("/welcome");
+  };
+
+  const handleSwitchRole = () => {
+    updateUser({ role: selectedRole });
+    setSwitchRoleOpen(false);
+    toast({
+      title: "Role Berubah",
+      description: `Anda sekarang masuk sebagai ${selectedRole === "freelancer" ? "Freelancer" : selectedRole === "client" ? "Client" : "Freelancer & Client"}`,
+    });
+    navigate("/home");
   };
 
   return (
@@ -44,16 +69,17 @@ const Profile = () => {
           </Link>
           <div className="flex items-center gap-4 mb-6">
             <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
-              <AvatarImage src="" />
-              <AvatarFallback className="text-2xl bg-white text-primary">JD</AvatarFallback>
+              <AvatarImage src={user?.avatar || ""} />
+              <AvatarFallback className="text-2xl bg-white text-primary">
+                {user?.name?.charAt(0) || "JD"}
+              </AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <h1 className="text-2xl font-bold">John Doe</h1>
-              <p className="text-white/80">john.doe@university.ac.id</p>
+              <h1 className="text-2xl font-bold">{user?.name || "John Doe"}</h1>
+              <p className="text-white/80">{user?.email || "john.doe@university.ac.id"}</p>
               <div className="flex gap-2 mt-2">
                 {(() => {
-                  const storedUser = localStorage.getItem("user");
-                  const userRole = storedUser ? JSON.parse(storedUser).role : null;
+                  const userRole = user?.role;
                   
                   if (userRole === "freelancer") {
                     return (
@@ -133,6 +159,51 @@ const Profile = () => {
         {/* Menu Items */}
         <Card className="mb-6 shadow-card">
           <CardContent className="p-0 divide-y divide-border">
+            <Dialog open={switchRoleOpen} onOpenChange={setSwitchRoleOpen}>
+              <DialogTrigger asChild>
+                <button className="flex items-center gap-4 p-4 hover:bg-muted/50 transition-smooth w-full text-left">
+                  <div className="h-10 w-10 rounded-full bg-success/10 flex items-center justify-center">
+                    <User className="h-5 w-5 text-success" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium">Switch Role</p>
+                    <p className="text-sm text-muted-foreground">Change between freelancer and client</p>
+                  </div>
+                </button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Switch Role</DialogTitle>
+                  <DialogDescription>
+                    Pilih role yang ingin Anda gunakan
+                  </DialogDescription>
+                </DialogHeader>
+                <RadioGroup value={selectedRole} onValueChange={setSelectedRole}>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="freelancer" id="freelancer" />
+                    <Label htmlFor="freelancer" className="flex-1 cursor-pointer">
+                      Freelancer
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="client" id="client" />
+                    <Label htmlFor="client" className="flex-1 cursor-pointer">
+                      Client
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="both" id="both" />
+                    <Label htmlFor="both" className="flex-1 cursor-pointer">
+                      Keduanya
+                    </Label>
+                  </div>
+                </RadioGroup>
+                <Button onClick={handleSwitchRole} className="w-full gradient-primary">
+                  Confirm
+                </Button>
+              </DialogContent>
+            </Dialog>
+
             <Link to="/profile/edit" className="flex items-center gap-4 p-4 hover:bg-muted/50 transition-smooth">
               <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
                 <User className="h-5 w-5 text-primary" />
