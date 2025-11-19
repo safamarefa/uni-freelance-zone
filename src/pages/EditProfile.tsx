@@ -15,15 +15,27 @@ const EditProfile = () => {
   const { toast } = useToast();
   const [name, setName] = useState(user?.name || "");
   const [email, setEmail] = useState(user?.email || "");
-  const [bio, setBio] = useState("");
-  const [phone, setPhone] = useState("");
+  const [bio, setBio] = useState(user?.bio || "");
+  const [phone, setPhone] = useState(user?.phone || "");
+  const [avatar, setAvatar] = useState(user?.avatar || "");
 
   const handleSave = () => {
-    updateUser({ name, email });
+    updateUser({ name, email, phone, bio, avatar });
     toast({
       title: "Profile Updated",
       description: "Your profile has been updated successfully.",
     });
+  };
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -47,14 +59,23 @@ const EditProfile = () => {
             <div className="flex flex-col items-center mb-6">
               <div className="relative">
                 <Avatar className="h-24 w-24">
-                  <AvatarImage src="" />
+                  <AvatarImage src={avatar} />
                   <AvatarFallback className="text-2xl bg-primary text-primary-foreground">
-                    {user?.name?.charAt(0) || "U"}
+                    {name?.charAt(0) || "U"}
                   </AvatarFallback>
                 </Avatar>
+                <input
+                  type="file"
+                  id="avatar-upload"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                />
                 <Button
+                  type="button"
                   size="icon"
                   className="absolute bottom-0 right-0 h-8 w-8 rounded-full"
+                  onClick={() => document.getElementById('avatar-upload')?.click()}
                 >
                   <Camera className="h-4 w-4" />
                 </Button>

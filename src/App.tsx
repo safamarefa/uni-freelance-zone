@@ -21,6 +21,7 @@ import Help from "./pages/Help";
 import Withdrawal from "./pages/Withdrawal";
 import OrderDetail from "./pages/OrderDetail";
 import ChatClient from "./pages/ChatClient";
+import AddService from "./pages/AddService";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -59,6 +60,7 @@ const AppRoutes = () => {
         <Route path="/withdrawal" element={<Withdrawal />} />
         <Route path="/order/:id" element={<OrderDetail />} />
         <Route path="/chat/:clientId" element={<ChatClient />} />
+        <Route path="/add-service" element={<AddService />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

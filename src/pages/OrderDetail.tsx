@@ -2,11 +2,32 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ArrowLeft, User, Mail, Phone, Calendar, DollarSign, MessageSquare } from "lucide-react";
+import { ArrowLeft, User, Mail, Phone, Calendar, DollarSign, MessageSquare, Check, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleMessageClient = () => {
+    navigate("/chat/1");
+  };
+
+  const handleApproveOrder = () => {
+    toast({
+      title: "Order Disetujui",
+      description: "Order telah berhasil disetujui dan akan dimulai",
+    });
+  };
+
+  const handleRejectOrder = () => {
+    toast({
+      title: "Order Ditolak",
+      description: "Order telah ditolak. Client akan diberitahu",
+      variant: "destructive",
+    });
+  };
 
   const order = {
     id: "ORD-001",
@@ -101,18 +122,31 @@ const OrderDetail = () => {
               </div>
             </div>
 
-            <Button className="w-full mt-4 gradient-primary">
+            <Button
+              className="w-full mt-4 gradient-primary"
+              onClick={handleMessageClient}
+            >
               <MessageSquare className="h-4 w-4 mr-2" />
               Message Client
             </Button>
           </CardContent>
         </Card>
 
-        <div className="flex gap-3">
-          <Button variant="outline" className="flex-1">
-            Cancel Order
+        <div className="grid grid-cols-2 gap-4">
+          <Button 
+            className="gradient-primary"
+            onClick={handleApproveOrder}
+          >
+            <Check className="h-4 w-4 mr-2" />
+            Approve Order
           </Button>
-          <Button className="flex-1 gradient-primary">Mark as Complete</Button>
+          <Button 
+            variant="destructive"
+            onClick={handleRejectOrder}
+          >
+            <X className="h-4 w-4 mr-2" />
+            Reject Order
+          </Button>
         </div>
       </main>
     </div>

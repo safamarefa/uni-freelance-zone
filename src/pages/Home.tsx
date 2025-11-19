@@ -5,7 +5,7 @@ import ServiceCard from "@/components/ServiceCard";
 import BottomNav from "@/components/BottomNav";
 import TopNav from "@/components/TopNav";
 import { Search, Bell, TrendingUp, BookOpen, Palette, Code, PenTool, Trash2, Truck, Camera, MoreHorizontal } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import tutorImage from "@/assets/tutor-service.jpg";
@@ -87,10 +87,12 @@ const Home = () => {
                     Penarikan Dana
                   </Button>
                 </Link>
-                <Button className="gradient-primary">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Tambah Jasa
-                </Button>
+                <Link to="/add-service">
+                  <Button className="gradient-primary">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Tambah Jasa
+                  </Button>
+                </Link>
                 <Link to="/notifications">
                   <Button variant="ghost" size="icon" className="relative">
                     <Bell className="h-5 w-5" />
@@ -186,10 +188,12 @@ const Home = () => {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                   <CardTitle>Jasa yang Saya Tawarkan</CardTitle>
-                  <Button size="sm" className="gradient-primary">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Tambah
-                  </Button>
+                  <Link to="/add-service">
+                    <Button size="sm" className="gradient-primary">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Tambah
+                    </Button>
+                  </Link>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {trendingServices.slice(0, 2).map((service) => (
